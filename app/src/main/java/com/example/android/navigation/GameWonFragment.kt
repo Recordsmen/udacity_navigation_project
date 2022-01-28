@@ -59,7 +59,6 @@ class GameWonFragment : Fragment() {
             .setText(getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
             .setType("text/plain")
             .intent
-
     }
     private fun shareSuccess() {
         startActivity(getShareIntent())

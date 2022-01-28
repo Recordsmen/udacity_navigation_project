@@ -66,6 +66,12 @@ class GameFragment : Fragment() {
                 inflater, R.layout.fragment_game, container, false)
         randomizeQuestions()
         binding.game = this
+        ClickLogic(binding)
+
+        return binding.root
+    }
+
+    private fun ClickLogic(binding: FragmentGameBinding) {
         binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         { view: View ->
             val checkedId = binding.questionRadioGroup.checkedRadioButtonId
@@ -83,22 +89,25 @@ class GameFragment : Fragment() {
                         setQuestion()
                         binding.invalidateAll()
                     } else {
-                        view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions,questionIndex))
+                        view.findNavController().navigate(
+                            GameFragmentDirections.actionGameFragmentToGameWonFragment(
+                                numQuestions,
+                                questionIndex
+                            )
+                        )
                     }
                 } else {
-                    view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment2())
+                    view.findNavController()
+                        .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment2())
                 }
             }
         }
-        return binding.root
     }
-
     private fun randomizeQuestions() {
         questions.shuffle()
         questionIndex = 0
         setQuestion()
     }
-
     private fun setQuestion() {
         currentQuestion = questions[questionIndex]
         answers = currentQuestion.answers.toMutableList()
